@@ -78,3 +78,7 @@ Visit: http://localhost:3000
    💡 State-driven filtering and UI responsiveness
 
    ⚙️ Working with environment configs and deployment-ready structure
+
+
+
+![image](https://github.com/user-attachments/assets/26959cf8-7122-4ee8-9461-8d481f3e247c)
