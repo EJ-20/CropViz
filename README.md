@@ -5,50 +5,49 @@ This project was built as a simulation tool for smart agriculture platforms, sui
 
 🔍 Features
 
-    🗺️ Interactive Leaflet map bounded to Canadian territory
+   🗺️ Interactive Leaflet map bounded to Canadian territory
 
-    🌱 Crop type and year filters with dynamic marker updates
+   🌱 Crop type and year filters with dynamic marker updates
 
-    📦 Backend REST API with Mongoose for querying crop data
+   📦 Backend REST API with Mongoose for querying crop data
 
-    📍 Custom marker icons based on crop type
+   📍 Custom marker icons based on crop type
 
-    🧭 Recenter button to quickly navigate to the primary map region
+   🧭 Recenter button to quickly navigate to the primary map region
 
-    ⚡ Efficient frontend state management and API integration
+   ⚡ Efficient frontend state management and API integration
 
-
-    📊 Tech Stack
-Frontend	React, TypeScript, Tailwind CSS
-Mapping	Leaflet.js, React-Leaflet
-Backend	Node.js, Express.js
-Database	MongoDB Atlas, Mongoose
-Tooling	Nodemon, concurrently, dotenv
-DevOps	Git, npm
+📊 Tech Stack
+Frontend:	React, TypeScript, Tailwind CSS
+Mapping:	Leaflet.js, React-Leaflet
+Backend:	Node.js, Express.js
+Database:	MongoDB Atlas, Mongoose
+Tooling:	Nodemon, concurrently, dotenv
+DevOps:    	Git, npm
 
 
 🚀 Getting Started
 
-    Clone the repository:
+Clone the repository:
 
-git clone https://github.com/your-username/CropViz.git
-cd CropViz
+    git clone https://github.com/your-username/CropViz.git
+    cd CropViz
 
 Setup backend:
 
-    Navigate to backend folder:
+Navigate to backend folder:
 
-cd backend
-npm install
+    cd backend
+    npm install
 
 Create a .env file:
 
-MONGO_URI=mongodb+srv://youruser:yourpass@yourcluster.mongodb.net/?retryWrites=true&w=majority
-PORT=5000
+    MONGO_URI=mongodb+srv://youruser:yourpass@yourcluster.mongodb.net/?retryWrites=true&w=majority
+    PORT=5000
 
 Transform and insert data into MongoDB:
 
-node scripts/transformAndInsert.js
+    node scripts/transformAndInsert.js
 
 Start the server:
 
@@ -56,26 +55,26 @@ Start the server:
 
 Setup frontend:
 
-    Navigate to frontend:
+ Navigate to frontend:
 
-cd ../frontend
-npm install
+    cd ../frontend
+    npm install
 
 Start the development server:
 
-npm start
+    npm start
 
 Visit: http://localhost:3000
 
 
 🧠 Skills Demonstrated
 
-    🔧 Full-stack development with REST API and database design
+   🔧 Full-stack development with REST API and database design
 
-    🧭 Interactive geospatial visualization with Leaflet and React
+   🧭 Interactive geospatial visualization with Leaflet and React
 
-    📊 Data cleaning and transformation using custom scripts
+   📊 Data cleaning and transformation using custom scripts
 
-    💡 State-driven filtering and UI responsiveness
+   💡 State-driven filtering and UI responsiveness
 
-    ⚙️ Working with environment configs and deployment-ready structure
+   ⚙️ Working with environment configs and deployment-ready structure
