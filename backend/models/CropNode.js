@@ -1,19 +1,23 @@
+// models/CropNode.js
 const mongoose = require("mongoose");
 
-const cropSchema = new mongoose.Schema({
-  deviceId: String,
-  CARUID: Number,
-  location: {
-    type: { type: String, enum: ["Point"], default: "Point" },
-    coordinates: { type: [Number], index: "2dsphere" } // [lng, lat]
-  },
-  crops: [
-    {
-      name: String,
-      yield: { type: Map, of: Number },
-      area: { type: Map, of: Number }
-    }
-  ]
+const CropSchema = new mongoose.Schema({
+  name: String,
+  yield: { type: Map, of: Number }, // e.g., { "1987": 47.1, "1988": 52.9 }
 });
 
-module.exports = mongoose.model("CropNode", cropSchema);
+const CropNodeSchema = new mongoose.Schema({
+  CARUID: Number,
+  deviceId: String,
+  location: {
+    coordinates: {
+      type: [Number], // [lng, lat]
+      index: "2dsphere", // allows geospatial queries
+    },
+  },
+  crops: [CropSchema],
+});
+
+module.exports = mongoose.model("CropNode", CropNodeSchema, "cropnodes");
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//                             ^ this last argument explicitly links to collection name

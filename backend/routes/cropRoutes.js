@@ -1,8 +1,8 @@
+// routes/CropRoutes.js
 const express = require("express");
 const router = express.Router();
-const { getAllCropNodes, getByCrop } = require("../controllers/cropController");
+const cropController = require("../controllers/cropController");
 
-router.get("/", getAllCropNodes);
-router.get("/crop/:name", getByCrop);
+router.get("/crops", cropController.getAllCropNodes);
 
 module.exports = router;
