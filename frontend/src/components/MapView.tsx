@@ -1,106 +1,100 @@
-// src/components/MapView.tsx
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-} from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useEffect, useState } from 'react';
-import L from 'leaflet';                       // optional if you later add icons
-import { Filters } from '../App';              // type exported from App.tsx
+import L from 'leaflet';
+import { Filters } from '../App';
 
+import 'leaflet/dist/leaflet.css';
 
+// Fix Leaflet's default icon issue in some bundlers
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-/* ------------ Types ----------------------------------------------------- */
-export type CropNode = {
+const customIcon = new L.Icon({
+  iconUrl,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+interface CropEntry {
+  name: string;
+  yield: {
+    [year: string]: number;
+  };
+}
+
+interface VictoryNode {
   CARUID: number;
-  deviceId: string;
-  CROP: string;
-  location?: { coordinates: [number, number] };   // [lng, lat]
-  crops: { name: string; yield: Record<string, number> }[];
-  [key: string]: any; // allows Y#### / A#### fields
-};
+  deviceId?: string;
+  location: {
+    coordinates: [number, number]; // [longitude, latitude]
+  };
+  crops: CropEntry[];
+}
 
-type MapViewProps = { filters: Filters };
+interface MapViewProps {
+  filters: Filters;
+}
 
-/* ------------ Component ------------------------------------------------- */
 export default function MapView({ filters }: MapViewProps) {
-  const [allNodes, setAllNodes] = useState<CropNode[]>([]);
-  const [filtered, setFiltered] = useState<CropNode[]>([]);
+  const [nodes, setNodes] = useState<VictoryNode[]>([]);
 
-  /* ---- Fetch once on mount ---- */
   useEffect(() => {
     fetch('http://localhost:5000/api/crops')
-      .then((res) => res.json())
-      .then((data: CropNode[]) => {
-        console.log('📥 Raw crop-nodes:', data.length);
-        setAllNodes(data);
+      .then(res => res.json())
+      .then(data => {
+        console.log("Fetched crop nodes:", data);
+        setNodes(data);
       })
-      .catch((err) => console.error('Error fetching crop data:', err));
+      .catch(err => console.error("Error fetching crop data:", err));
   }, []);
 
-  /* ---- Re-filter whenever filters or data change ---- */
-  useEffect(() => {
-    const result = allNodes.filter((node) => {
-      /* crop filter */
-      const cropOk =
-        filters.crop === 'All' ||
-        node.CROP?.toLowerCase() === filters.crop.toLowerCase();
+  const filteredNodes = nodes.filter(node =>
+    node.crops.some(crop => {
+      const cropMatch = !filters.crop || filters.crop === 'All' || crop.name === filters.crop;
+      const yearMatch = !filters.year ||  (crop.yield[filters.year] !== undefined && crop.yield[filters.year] !== -999);
+      return cropMatch && yearMatch;
+    })
+  );
 
-      /* year filter */
-      const yearKey = `Y${filters.year}`;
-      const yVal = node[yearKey];
-      const yearOk =
-        filters.year == 0 || (yVal !== undefined && yVal !== -999);
-
-      return cropOk && yearOk;
-    });
-    console.log('🔎 After filter:', result.length);
-    setFiltered(result);
-  }, [filters, allNodes]);
-
-  /* --------------------------------------------------------------------- */
   return (
     <>
-      <h2 className="text-center py-2">
-        CropViz Map — showing {filtered.length} nodes
-      </h2>
-
+      <h2 style={{ textAlign: 'center', padding: '0.5rem' }}>CropViz Map</h2>
       <MapContainer
         center={[54, -100]}
         zoom={4}
-        style={{ height: '90vh', width: '100%' }}
+        style={{ height: "90vh", width: "100%" }}
         maxBounds={[
-          [40, -140], // SW corner of Canada-ish
-          [70, -50],  // NE corner
+          [40, -140],
+          [70, -50],
         ]}
         maxBoundsViscosity={1.0}
       >
         <TileLayer
-          attribution="&copy; OpenStreetMap contributors"
+          attribution='&copy; OpenStreetMap contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {filtered.map((node, idx) => {
-          const coords = node.location?.coordinates;
-          if (!coords || coords.length !== 2) return null;
-
-          const [lng, lat] = coords; // stored as [lng, lat]
-
-          return (
-            <Marker key={idx} position={[lat, lng]}>
+        {filteredNodes.map((node, idx) => (
+          node.location?.coordinates && (
+            <Marker
+              key={idx}
+              position={[
+                node.location.coordinates[1], // latitude
+                node.location.coordinates[0], // longitude
+              ]}
+              icon={customIcon}
+            >
               <Popup>
-                <strong>{node.deviceId}</strong>
-                <br />
-                Region (CARUID): {node.CARUID}
-                <br />
-                Crop: {node.CROP}
-                <br />
-                Yield {filters.year}: {node[`Y${filters.year}`] ?? 'N/A'}
+                <strong>{node.deviceId || "Victory Unit"}</strong><br />
+                Region: {node.CARUID}<br />
+                Crops: {node.crops.map(c => c.name).join(", ")}
               </Popup>
             </Marker>
-          );
-        })}
+          )
+        ))}
       </MapContainer>
     </>
   );
