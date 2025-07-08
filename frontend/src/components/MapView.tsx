@@ -1,23 +1,10 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-cluster';
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import { Filters } from '../App';
 
 import 'leaflet/dist/leaflet.css';
 
-// Fix Leaflet's default icon issue in some bundlers
-import iconUrl from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
-const customIcon = new L.Icon({
-  iconUrl,
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
 
 const createImageIcon = (src: string) =>
   new L.Icon({
