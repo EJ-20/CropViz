@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import { Filters } from '../App';
@@ -18,6 +19,16 @@ const customIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
+const createImageIcon = (src: string) =>
+  new L.Icon({
+    iconUrl: src,
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+    className: "", // remove default shadow
+  });
+
+
 interface CropEntry {
   name: string;
   yield: {
@@ -25,7 +36,7 @@ interface CropEntry {
   };
 }
 
-interface VictoryNode {
+interface Node {
   CARUID: number;
   deviceId?: string;
   location: {
@@ -39,7 +50,7 @@ interface MapViewProps {
 }
 
 export default function MapView({ filters }: MapViewProps) {
-  const [nodes, setNodes] = useState<VictoryNode[]>([]);
+  const [nodes, setNodes] = useState<Node[]>([]);
 
   useEffect(() => {
     fetch('http://localhost:5000/api/crops')
@@ -85,10 +96,12 @@ export default function MapView({ filters }: MapViewProps) {
                 node.location.coordinates[1], // latitude
                 node.location.coordinates[0], // longitude
               ]}
-              icon={customIcon}
+              icon={createImageIcon(
+                `/icons/${node.crops[0]?.name.toLowerCase() || "default"}.svg`
+              )}
             >
               <Popup>
-                <strong>{node.deviceId || "Victory Unit"}</strong><br />
+                <strong>{node.deviceId || "Unit"}</strong><br />
                 Region: {node.CARUID}<br />
                 Crops: {node.crops.map(c => c.name).join(", ")}
               </Popup>

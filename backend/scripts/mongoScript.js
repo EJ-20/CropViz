@@ -54,7 +54,7 @@ const TARGET_COLLECTION = "cropnodes";            // collection the frontend rea
 
     return {
       CARUID   : doc.CARUID,
-      deviceId : `Victory-${doc.CARUID}-${doc.CROP}`,
+      deviceId : `${doc.CARUID}-${doc.CROP}`,
       location : {
         coordinates: [Number(doc.LONGITUDE), Number(doc.LATITUDE)], // [lng, lat]
       },

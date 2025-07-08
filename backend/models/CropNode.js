@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const CropSchema = new mongoose.Schema({
   name: String,
-  yield: { type: Map, of: Number }, // e.g., { "1987": 47.1, "1988": 52.9 }
+  yield: { type: Map, of: Number }, 
 });
 
 const CropNodeSchema = new mongoose.Schema({
@@ -19,5 +19,4 @@ const CropNodeSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("CropNode", CropNodeSchema, "cropnodes");
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//                             ^ this last argument explicitly links to collection name
+

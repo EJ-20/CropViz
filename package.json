@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
+  },
+  "dependencies": {
+    "react-leaflet": "4.2",
+    "react-leaflet-cluster": "^2.1.0"
+  }
+}
