@@ -59,7 +59,7 @@ Setup frontend:
 
 Nagivate back to the root directory:
 
-   `npm run dev
+   `npm run dev`
    
    
 Visit: http://localhost:3000
