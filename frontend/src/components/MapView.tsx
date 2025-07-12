@@ -71,7 +71,6 @@ export default function MapView({ filters }: MapViewProps) {
         maxBoundsViscosity={1.0}
       >
         <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 

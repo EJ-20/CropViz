@@ -15,9 +15,9 @@ const TARGET_COLLECTION = "cropnodes";            // collection the frontend rea
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("✅ Connected to MongoDB Atlas");
+    console.log("Connected to MongoDB Atlas");
   } catch (err) {
-    console.error("❌ Mongo connection error:", err.message);
+    console.error("Mongo connection error:", err.message);
     process.exit(1);
   }
 
@@ -28,10 +28,10 @@ const TARGET_COLLECTION = "cropnodes";            // collection the frontend rea
   const rawCol = rawDb.collection(RAW_COLLECTION);
 
   const rawDocs = await rawCol.find().toArray();
-  console.log(`📦 Found ${rawDocs.length} raw documents`);
+  console.log(`Found ${rawDocs.length} raw documents`);
 
   if (!rawDocs.length) {
-    console.log("⚠️  No data to transform — exiting.");
+    console.log(" No data to transform — exiting.");
     await mongoose.disconnect();
     return;
   }
@@ -61,7 +61,7 @@ const TARGET_COLLECTION = "cropnodes";            // collection the frontend rea
       crops: [
         { name: doc.CROP, yield: yieldData },
       ],
-      ...yearFields,               // ⬅️  attach Y#### / A#### fields
+      ...yearFields,               //  attach Y#### / A#### fields
     };
   });
 
@@ -73,9 +73,9 @@ const TARGET_COLLECTION = "cropnodes";            // collection the frontend rea
   await targetCol.insertMany(transformed);
 
   console.log(
-    `✅ Inserted ${transformed.length} docs into "${TARGET_COLLECTION}"`
+    ` Inserted ${transformed.length} docs into "${TARGET_COLLECTION}"`
   );
 
   await mongoose.disconnect();
-  console.log("🔌 Disconnected — script complete.");
+  console.log(" Disconnected — script complete.");
 })();
