@@ -49,9 +49,6 @@ Transform and insert data into MongoDB:
 
     node scripts/transformAndInsert.js
 
-Start the server:
-
-    npm run dev
 
 Setup frontend:
 
@@ -60,10 +57,11 @@ Setup frontend:
     cd ../frontend
     npm install
 
-Start the development server:
+Nagivate back to the root directory:
 
-    npm start
-
+   `npm run dev
+   
+   
 Visit: http://localhost:3000
 
 
@@ -81,4 +79,5 @@ Visit: http://localhost:3000
 
 
 
-![image](https://github.com/user-attachments/assets/26959cf8-7122-4ee8-9461-8d481f3e247c)
+<img width="2425" height="847" alt="image" src="https://github.com/user-attachments/assets/d42c1cf7-15ee-493a-b26a-4f9cd3aa94fc" />
+
