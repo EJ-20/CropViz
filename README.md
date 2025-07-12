@@ -59,6 +59,7 @@ Setup frontend:
 
 Nagivate back to the root directory:
 
+   ##
    `npm run dev`
    
    
