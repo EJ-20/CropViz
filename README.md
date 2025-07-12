@@ -57,10 +57,10 @@ Setup frontend:
     cd ../frontend
     npm install
 
-Nagivate back to the root directory:
+ Nagivate back to the root directory:
 
-   ##
-   `npm run dev`
+    npm start dev
+
    
    
 Visit: http://localhost:3000
