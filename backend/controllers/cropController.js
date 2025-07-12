@@ -3,6 +3,7 @@ const CropNode = require("../models/CropNode");
 
 exports.getAllCropNodes = async (req, res) => {
   try {
+    
     const data = await CropNode.find({});
     res.json(data);
   } catch (err) {
