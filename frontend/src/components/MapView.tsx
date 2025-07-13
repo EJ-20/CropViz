@@ -74,17 +74,26 @@ export default function MapView({ filters }: MapViewProps) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {filteredNodes.map((node, idx) => (
-          node.location?.coordinates && (
+        {filteredNodes.map((node, idx) => {
+          // Get the first crop that has a corresponding icon
+          const availableIcons = ['barley', 'canola', 'corn', 'oats', 'soybeans', 'wheat'];
+          const firstCropWithIcon = node.crops.find(crop => 
+            availableIcons.includes(crop.name.toLowerCase())
+          );
+          
+          // Use the first crop with an icon, or fallback to default
+          const cropName = firstCropWithIcon?.name.toLowerCase() || 'default';
+          const iconPath = `/icons/${cropName}.svg`;
+          console.log(`Node ${idx}: crop=${cropName}, icon=${iconPath}`);
+          
+          return node.location?.coordinates && (
             <Marker
               key={idx}
               position={[
                 node.location.coordinates[1], // latitude
                 node.location.coordinates[0], // longitude
               ]}
-              icon={createImageIcon(
-                `/icons/${node.crops[0]?.name.toLowerCase() || "default"}.svg`
-              )}
+              icon={createImageIcon(iconPath)}
             >
               <Popup>
                 <strong>{node.deviceId || "Unit"}</strong><br />
@@ -92,8 +101,8 @@ export default function MapView({ filters }: MapViewProps) {
                 Crops: {node.crops.map(c => c.name).join(", ")}
               </Popup>
             </Marker>
-          )
-        ))}
+          );
+        })}
       </MapContainer>
     </>
   );

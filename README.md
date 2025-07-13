@@ -17,11 +17,14 @@ This project was built as a simulation tool for smart agriculture platforms, sui
 
    ⚡ Efficient frontend state management and API integration
 
+   🧪 Comprehensive testing suite for both backend and frontend
+
 📊 Tech Stack
 Frontend:	React, TypeScript, Tailwind CSS
 Mapping:	Leaflet.js, React-Leaflet
 Backend:	Node.js, Express.js
 Database:	MongoDB Atlas, Mongoose
+Testing:	Jest, Supertest, React Testing Library
 Tooling:	Nodemon, concurrently, dotenv
 DevOps:    	Git, npm
 
@@ -66,6 +69,42 @@ Setup frontend:
 Visit: http://localhost:3000
 
 
+🧪 Testing
+
+The project includes comprehensive testing for both backend and frontend components:
+
+Backend Testing:
+- API endpoint testing with Supertest
+- Database integration tests
+- Error handling validation
+- Query parameter filtering tests
+
+Run backend tests:
+```bash
+cd backend
+npm test
+```
+
+Frontend Testing:
+- Component rendering tests with React Testing Library
+- User interaction testing
+- UI element validation
+- Jest test runner integration
+
+Run frontend tests:
+```bash
+cd frontend
+npm test
+```
+
+Test Coverage:
+- Backend API endpoints (`/api/crops`)
+- Query parameter filtering (crop type, year)
+- Error handling for invalid inputs
+- Frontend component rendering
+- User interface interactions
+
+
 🧠 Skills Demonstrated
 
    🔧 Full-stack development with REST API and database design
@@ -77,6 +116,12 @@ Visit: http://localhost:3000
    💡 State-driven filtering and UI responsiveness
 
    ⚙️ Working with environment configs and deployment-ready structure
+
+   🧪 Comprehensive testing implementation with Jest and React Testing Library
+
+   🔍 API testing with Supertest for backend validation
+
+   🎯 Component testing for frontend reliability
 
 
 
